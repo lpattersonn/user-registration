@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/scss/_compiled/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="assets/js/script.js"></script>
     <title>Registration Form</title>
 </head>
@@ -33,13 +34,14 @@
                 <div class="form-control">
                     <label for="password">Password</label>
                     <input type="password" name="password" autocomplete="new-password" minlength="8" id="password" required>
+                    <i class="fa fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
                 </div>
                 <div class="form-control">
                     <label for="fullName" id="fullNameLabel">Full name</label>
                     <input type="text" name="fullName" autocomplete="name" id="fullName" required>
                 </div>
                 <div class="form-control" id="titleContainer" style="display: none;">
-                    <label for="title">Title</label>
+                    <label for="title">Contact title</label>
                     <input type="text" name="title" id="title">
                 </div>
                 <div class="form-control">
