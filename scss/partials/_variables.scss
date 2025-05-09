@@ -1,0 +1,39 @@
+// Colors
+$color-white: #ffffff;
+$color-yellow: #f8b237;
+$color-orange: #f4711d;
+$color-blue: #303f8e;
+$color-lightgrey: #f1f1f1;
+$color-black: #000000;
+
+// Mixins
+@mixin border {
+    border: 1px solid $color-yellow;
+}
+@mixin box-shadow {
+    box-shadow: 0px 3px 0px 0px #f8b237;
+}
+@mixin transition {
+    transition: 300ms ease-in;
+}
+@mixin box-shadow {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15),
+    0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@mixin media($size) {
+    @if $size == 'desktop' {
+        @media screen and (min-width: 1000px) {
+            @content;
+        }
+    } 
+    @if $size == 'mobile' {
+        @media screen and (max-width: 999px) {
+            @content;
+        }
+    }
+    @if $size == 'mobile-sm' {
+        @media screen and (max-width: 768px) {
+            @content;
+        }
+    }
+}
