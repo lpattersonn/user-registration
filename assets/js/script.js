@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (accountType) {
         accountType.addEventListener('change', (event) => {
             if (accountType.value === "Company") {
-                fullNameLabel.innerHTML= "Contact Name";
+                fullNameLabel.innerHTML= "Contact name";
                 titleContainer.style.display = "flex";
             } else {
-                fullNameLabel.innerHTML = "Full Name";
+                fullNameLabel.innerHTML = "Full name";
                 titleContainer.style.display = 'none';
             }
         });

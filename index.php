@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/scss/_compiled/style.css">
+    <script src="assets/js/script.js"></script>
+    <title>Registration Form</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container__image">
+            <img src="./assets/images/form-image.svg" alt="" role="presentation">
+        </div>
+        <div class="container__form">
+            <div class="container__form-heading">
+                <h1>Nice To Meet You</h1>
+                <p class="lead">Let's get you registered</p>
+            </div>
+            <form id="registration-form" action="registration.php" method="POST">
+                <div class="form-control">
+                    <label for="accountType">Account type</label>
+                    <select name="accountType" id="accountType" required>
+                        <option value="" selected disabled>Choose an option</option>
+                        <option value="Individual">Individual</option>
+                        <option value="Company">Company</option>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" autocomplete="username" id="username" required>
+                </div>
+                <div class="form-control">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" autocomplete="new-password" minlength="8" id="password" required>
+                </div>
+                <div class="form-control">
+                    <label for="fullName" id="fullNameLabel">Full name</label>
+                    <input type="text" name="fullName" autocomplete="name" id="fullName" required>
+                </div>
+                <div class="form-control" id="titleContainer" style="display: none;">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div class="form-control">
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="tel" name="phoneNumber" autocomplete="tel" id="phoneNumber" required>
+                </div>
+                <div class="form-control">
+                    <label for="email">Email address</label>
+                    <input type="email" name="email" autocomplete="email" id="email" required>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
