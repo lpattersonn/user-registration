@@ -17,8 +17,8 @@
                 <h1>Nice To Meet You</h1>
                 <p class="lead">Let's get you registered</p>
             </div>
-            <form id="registration-form" action="registration.php" method="POST">
-                <div class="form-control">
+            <form id="registration-form" action="registration.php" method="POST">      
+            <div class="form-control">
                     <label for="accountType">Account type</label>
                     <select name="accountType" id="accountType" required>
                         <option value="" selected disabled>Choose an option</option>
@@ -50,9 +50,27 @@
                     <label for="email">Email address</label>
                     <input type="email" name="email" autocomplete="email" id="email" required>
                 </div>
+                <?php
+                    $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : '';
+                ?>
+
+                <?php if ($status === 'success'): ?>
+                    <div class="registration-success">
+                        <p>Registration successful!</p>
+                    </div>
+                <?php elseif ($status === 'error'): ?>
+                    <div class="registration-errow">
+                        <p>There was an error with your registration. Please try again.</p>
+                    </div>
+                <?php elseif ($status === 'exists'): ?>
+                    <div class="registration-exists">
+                        <p>Username or email already exists. Please use a different one.</p>
+                    </div>
+                <?php endif; ?>
                 <button type="submit">Register</button>
             </form>
         </div>
     </div>
+
 </body>
 </html>

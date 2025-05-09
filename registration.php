@@ -1,7 +1,7 @@
 <?php 
     // DB connection secttings
     $host = 'localhost';
-    $db = 'registration_form';
+    $db = 'user_registration';
     $user ='root';
     $pass = 'root';
     $charset = 'utf8mb4';
@@ -18,7 +18,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
     $fullName = $_POST['fullName'];
-    $title = $_POST['title'];
+    $contact_title = $_POST['title'];
     $phoneNumber = $_POST['phoneNumber'];
     $email = $_POST['email'];
 
@@ -29,13 +29,13 @@
     // Trim and strip tags for username,full name, and title if not null
     $username = trim(strip_tags($username));
     $fullName = trim(strip_tags($fullName));
-    $title = ($accountType === 'Company' && isset($title)) ? trim(strip_tags($title)) : null;
+    $contact_title = ($accountType === 'Company' && isset($contact_title)) ? trim(strip_tags($contact_title)) : null;
 
     // Sanitize phone number
     $phoneNumber = preg_replace('[^\d+\-\s]', '', $phoneNumber);
 
     // Hash password for secure storage
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
     //Email Sanitization
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -44,19 +44,41 @@
     }
 
     // Prepare SQL statement
-    $stmt = $conn->prepare("INSERT INTO users (account_type, username, password, full_name, title, phone_number, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (account_type, username, password_hash, full_name, contact_title, phone_number, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Prepare failed: " . $conn->error);
     }
     
-    $stmt->bind_param("sssssss", $accountType, $username, $hashedPassword, $fullName, $title, $phoneNumber, $email);
+    $stmt->bind_param("sssssss", $accountType, $username, $passwordHash, $fullName, $contact_title, $phoneNumber, $email);
     
 
-    // Execute and check 
+    // Check if username or email already exists
+    $checkStmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $checkStmt->bind_param("ss", $username, $email);
+    $checkStmt->execute();
+    $checkStmt->store_result();
+
+    if ($checkStmt->num_rows > 0) {
+        // Username or email already exists
+        header("Location: /index.php?status=exists");
+        exit();
+    }
+    $checkStmt->close();
+
+    // If not, insert new user
+    $stmt = $conn->prepare("INSERT INTO users (account_type, username, password_hash, full_name, contact_title, phone_number, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    $stmt->bind_param("sssssss", $accountType, $username, $passwordHash, $fullName, $contact_title, $phoneNumber, $email);
+
     if ($stmt->execute()) {
-        echo "Success";
+        header("Location: /index.php?status=success");
+        exit();
     } else {
-        echo $stmt->error;
+        header("Location: /index.php?status=error");
+        exit();
     }
 
     $stmt->close();

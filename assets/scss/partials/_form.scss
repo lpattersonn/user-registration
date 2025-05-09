@@ -57,6 +57,20 @@
                     }
                 }
             }
+            .registration {                
+                &-success {
+                    background-color: #28a745;
+                    padding: 0 1rem;
+                }
+                &-error {
+                    background-color: #dc3545;
+                    padding: 0 1rem;
+                }
+                &-exists {
+                    background-color: #dc3545;
+                    padding: 0 1rem;
+                }
+            }
             button[type="submit"] {
                 background-color: $color-orange;
                 font-size: 1.8rem;

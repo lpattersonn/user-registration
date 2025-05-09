@@ -30,6 +30,10 @@ h6 {
   font-size: 2rem;
 }
 
+p {
+  font-size: 1.6rem;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -111,6 +115,18 @@ body {
 }
 .container__form form .form-control input:focus, .container__form form .form-control select:focus {
   outline: none;
+}
+.container__form form .registration-success {
+  background-color: #28a745;
+  padding: 0 1rem;
+}
+.container__form form .registration-error {
+  background-color: #dc3545;
+  padding: 0 1rem;
+}
+.container__form form .registration-exists {
+  background-color: #dc3545;
+  padding: 0 1rem;
 }
 .container__form form button[type=submit] {
   background-color: #f4711d;
