@@ -14,13 +14,13 @@
     }
  
     // Collect POST data
-    $accountType = $_POST['accountType'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $fullName = $_POST['fullName'];
-    $contact_title = $_POST['title'];
-    $phoneNumber = $_POST['phoneNumber'];
-    $email = $_POST['email'];
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $accountType = trim($_POST['accountType'] ?? '');
+    $fullName = trim($_POST['fullName'] ?? '');
+    $contact_title = trim($_POST['title'] ?? '');
+    $phoneNumber = trim($_POST['phoneNumber'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     // Sanitize user input
     // Allow only "Individual" or "Company" for account type
