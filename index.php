@@ -59,12 +59,16 @@
                         <p>Registration successful!</p>
                     </div>
                 <?php elseif ($status === 'error'): ?>
-                    <div class="registration-errow">
+                    <div class="registration-error">
                         <p>There was an error with your registration. Please try again.</p>
                     </div>
-                <?php elseif ($status === 'exists'): ?>
+                <?php elseif ($status === 'email_exists'): ?>
                     <div class="registration-exists">
-                        <p>Username or email already exists. Please use a different one.</p>
+                        <p>Email already exists. Please use a different one.</p>
+                    </div>
+                <?php elseif ($status === 'username_exists'): ?>
+                    <div class="registration-exists">
+                        <p>Username already exists. Please use a different one.</p>
                     </div>
                 <?php endif; ?>
                 <button type="submit">Register</button>

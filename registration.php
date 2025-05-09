@@ -53,17 +53,31 @@
     
 
     // Check if username or email already exists
-    $checkStmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
-    $checkStmt->bind_param("ss", $username, $email);
-    $checkStmt->execute();
-    $checkStmt->store_result();
+    // --- Check if username exists ---
+    $stmt = $conn->prepare("SELECT 1 FROM users WHERE username = ? LIMIT 1");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
 
-    if ($checkStmt->num_rows > 0) {
-        // Username or email already exists
-        header("Location: /index.php?status=exists");
+    if ($stmt->num_rows > 0) {
+        $stmt->close();
+        header("Location: /index.php?status=username_exists");
         exit();
     }
-    $checkStmt->close();
+    $stmt->close();
+
+    // --- Check if email exists ---
+    $stmt = $conn->prepare("SELECT 1 FROM users WHERE email = ? LIMIT 1");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->close();
+        header("Location: /index.php?status=email_exists");
+        exit();
+    }
+    $stmt->close();
 
     // If not, insert new user
     $stmt = $conn->prepare("INSERT INTO users (account_type, username, password_hash, full_name, contact_title, phone_number, email) VALUES (?, ?, ?, ?, ?, ?, ?)");
